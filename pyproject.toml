@@ -1,0 +1,54 @@
+[project]
+name = "tokensentinel-migrate"
+version = "0.1.0"
+description = "Migrate from LLM observability tools (Helicone, Langfuse, LangSmith) to TokenSentinel."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "TokenSentinel contributors", email = "shakyasmreta@gmail.com" }]
+keywords = ["llm", "agents", "finops", "observability", "helicone", "migrate", "langfuse", "langsmith"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Monitoring",
+]
+dependencies = ["token-sentinel>=1.0.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+tokensentinel-migrate = "tokensentinel_migrate.cli:main"
+
+[project.urls]
+Homepage = "https://tokensentinel.dev"
+Issues = "https://github.com/tokensentinel/tokensentinel-migrate-python/issues"
+Repository = "https://github.com/tokensentinel/tokensentinel-migrate-python"
+Changelog = "https://github.com/tokensentinel/tokensentinel-migrate-python/blob/main/CHANGELOG.md"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tokensentinel_migrate"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+# E501: line length is enforced by formatter, not lint.
+# SIM105: try/except/pass is intentional for defensive instrumentation paths.
+ignore = ["E501", "SIM105"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
